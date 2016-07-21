@@ -1,0 +1,11 @@
+- name: Install eduroam Roaming Registry based on DjNRO
+  hosts: eduroam_djnro
+  become: True
+  vars_files:
+    - group_vars/secrets.yml
+  roles:
+    - djnro
+    - apache
+    - shibboleth
+    # - newrelic
+ 

@@ -1,0 +1,26 @@
+fqdn: 192.168.46.201
+domain_link: //eduroam.mw
+admin_user: admin
+admin_email: eduroam@ubuntunet.net
+facebook_url: //www.facebook.com/pages/UbuntuNet-Alliance-for-Research-and-Education-Networking
+twitter_url: //twitter.com/ubuntunet
+
+country: Example
+country_tld: ex
+# See http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+time_zone: Africa/Blantyre
+latitude: 13.9626
+longitude: 33.7741
+
+support_email: eduroam@ubuntunet.net
+support_phone: 123 456
+support_url: //ubuntunet.net
+
+db_type: postgresql_psycopg2
+db_name: djnro
+db_user: djbobo
+db_host: 127.0.0.1
+
+debug: True
+developer_name: UbuntuNet Alliance
+developer_url: //ubuntunet.net

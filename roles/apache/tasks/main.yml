@@ -1,0 +1,24 @@
+- name: Install Prerequisites
+  apt: pkg={{ item }} update_cache=yes cache_valid_time=36000
+  with_items:
+    - apache2
+    - libapache2-mod-wsgi
+    - libapache2-mod-shib2
+
+- name: Copy apache2 config file
+  template: >
+    src=djnro.conf.j2
+    dest=/etc/apache2/sites-available/djnro.conf
+  notify: restart apache
+
+- name: Disable default configuration
+  command: a2dissite 000-default
+  notify: restart apache
+
+- name: Enable IdP configuration
+  command: a2ensite djnro
+  notify: restart apache
+
+- name: Enable Apache SSL and Rewrite modules
+  command: a2enmod ssl rewrite
+  notify: restart apache

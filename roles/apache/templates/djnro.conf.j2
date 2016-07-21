@@ -1,0 +1,71 @@
+# Tune wsgi daemon as necessary: processes=x threads=y
+WSGIDaemonProcess djnro display-name=%{GROUP} python-path={{ installation_path }}/
+
+<VirtualHost *:80>
+  ServerName {{ fqdn }}
+
+  WSGIScriptAlias /  /opt/djnro/djnro/wsgi.py
+
+  <Directory /opt/djnro/djnro>
+    <Files wsgi.py>
+      WSGIProcessGroup djnro
+      Require all granted
+    </Files>
+  </Directory>
+
+  RewriteEngine on
+  
+  # These are needed, because eduroam Monitoring doesn't do https://
+  RewriteCond %{REQUEST_URI} !^/general
+  RewriteCond %{REQUEST_URI} !^/usage
+
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*) https://%{HTTP_HOST}/$1
+</VirtualHost>
+
+
+<VirtualHost *:443>
+    ServerName      {{ fqdn }}
+
+    Alias       /static {{ installation_path }}/static
+    WSGIScriptAlias /   {{ installation_path }}/djnro/wsgi.py
+
+    <Directory {{ installation_path }}/djnro>
+        <Files wsgi.py>
+            WSGIProcessGroup djnro
+            Require all granted
+            #Options FollowSymLinks
+            #Order deny,allow
+            #Allow from all
+        </Files>
+    </Directory>
+
+
+    <Directory {{ installation_path }}/static>
+        Require all granted
+    </Directory>
+
+    SSLEngine on
+    SSLCertificateFile  /etc/ssl/certs/ssl-cert-snakeoil.pem
+    SSLCertificateKeyFile   /etc/ssl/private/ssl-cert-snakeoil.key
+    SSLCertificateFile /etc/letsencrypt/live/{{ fqdn }}/cert.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/{{ fqdn }}/privkey.pem
+    Include /etc/letsencrypt/options-ssl-apache.conf
+    SSLCertificateChainFile /etc/letsencrypt/live/{{ fqdn }}/chain.pem
+
+
+    # Shibboleth SP configuration
+    ShibConfig  /etc/shibboleth/shibboleth2.xml
+    Alias       /shibboleth-sp  /usr/share/shibboleth
+
+    # SSO through Shibboleth SP:
+    <Location /login>
+        AuthType shibboleth
+        ShibRequireSession On
+        ShibUseHeaders On
+        require valid-user
+    </Location>
+    <Location /Shibboleth.sso>
+        SetHandler shib
+    </Location>
+</VirtualHost>

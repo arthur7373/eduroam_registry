@@ -1,0 +1,9 @@
+.vagrant
+
+secrets.yml
+
+*.crt
+*.key
+*.pem
+
+*.retry
