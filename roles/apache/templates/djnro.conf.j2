@@ -46,8 +46,8 @@ WSGIDaemonProcess djnro display-name=%{GROUP} python-path={{ installation_path }
     </Directory>
 
     SSLEngine on
-    SSLCertificateFile  /etc/ssl/certs/ssl-cert-snakeoil.pem
-    SSLCertificateKeyFile   /etc/ssl/private/ssl-cert-snakeoil.key
+    #SSLCertificateFile  /etc/ssl/certs/ssl-cert-snakeoil.pem
+    #SSLCertificateKeyFile   /etc/ssl/private/ssl-cert-snakeoil.key
     SSLCertificateFile /etc/letsencrypt/live/{{ fqdn }}/cert.pem
     SSLCertificateKeyFile /etc/letsencrypt/live/{{ fqdn }}/privkey.pem
     Include /etc/letsencrypt/options-ssl-apache.conf
