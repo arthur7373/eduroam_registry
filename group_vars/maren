@@ -14,7 +14,7 @@ latitude: -13.9626
 longitude: 33.7741
 
 support_email: eduroam@ubuntunet.net
-support_phone: 123 456
+support_phone: +265 1 754 535
 support_url: //ubuntunet.net
 
 db_type: postgresql_psycopg2
