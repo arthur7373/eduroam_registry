@@ -6,6 +6,7 @@ facebook_url: //www.facebook.com/pages/UbuntuNet-Alliance-for-Research-and-Educa
 twitter_url: //twitter.com/ubuntunet
 google_api_url: 
 
+federation_name: UbuntuNet Alliance
 country: Malawi
 country_tld: mw
 # See http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -24,6 +25,7 @@ db_host: 127.0.0.1
 
 entitlement: http://eduroam.mw/admin
 
+github_branch: master
 debug: True
 developer_name: UbuntuNet Alliance
 developer_url: //ubuntunet.net

@@ -20,6 +20,8 @@
 - name: Clone DjNRO repository
   git: repo=https://github.com/ubuntunet/djnro.git
        dest={{ installation_path }}
+       force=yes
+       version={{ github_branch }}
 
 - name: Install Requirements
   pip: requirements={{ installation_path }}/requirements.txt
@@ -41,6 +43,7 @@
 - name: Copy local settings
   template: src=local_settings.py.j2
             dest={{ installation_path }}/djnro/local_settings.py
+            backup=yes
 
 - name: Setup DjNRO
   django_manage: >
