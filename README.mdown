@@ -1,0 +1,15 @@
+# Ansible Playbook for eduroam Registry
+
+## Create Superuser Password
+
+The password for the Django superuser needs to be added manually:
+
+```
+ssh <servername>
+cd /opt/djnro
+./manage.py changepassword {{admin_user}}
+```
+
+## Initial Login
+
+Go to https://{{fqdn}}/admin and login with the the {{admin_user}} and with the password you have set above.
