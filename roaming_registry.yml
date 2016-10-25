@@ -5,7 +5,10 @@
     - group_vars/secrets.yml
 
   #Install Python2 on Ubuntu 16.04
-  # gather_facts: False
+  gather_facts: False
+  tasks:
+  - name: install python 2
+    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
   # pre_tasks:
   #   # - raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
   #   - raw: test -e /usr/bin/python || (apt install -y python-minimal)
