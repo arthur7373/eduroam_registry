@@ -24,7 +24,11 @@ db_host: 127.0.0.1
 
 entitlement: http://eduroam.mw/admin
 
-github_branch: next
+ubuntu_version: 14.04
+github_branch: develop
 debug: True
 developer_name: UbuntuNet Alliance
 developer_url: //ubuntunet.net
+
+enable_newrelic: False
+enable_shibboleth: False
