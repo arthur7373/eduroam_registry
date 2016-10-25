@@ -10,12 +10,20 @@
     - python-lxml
     - python-psycopg2
     - python-memcache
-    - python-django-social-auth
     - python-oauthlib
     - libxml2-dev
     - libxslt1-dev
     - postgresql
     - git
+
+- name: Install Python Social Auth for Ubuntu 14.04
+  apt: pkg=python-django-social-auth
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
+
+- name: Install Python Social Auth for Ubuntu 16.04
+  apt: pkg=python-social-auth
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
+
 
 - name: Clone DjNRO repository
   git: repo=https://github.com/ubuntunet/djnro.git
@@ -27,13 +35,15 @@
   pip: requirements={{ installation_path }}/requirements.txt
 
 - name: Create PostgreSQL database
-  become: true
   become_user: postgres
+  vars:
+    ansible_ssh_pipelining: true
   postgresql_db:  name={{ db_name }}
 
 - name: Create PostgreSQL user
-  become: true
   become_user: postgres
+  vars:
+    ansible_ssh_pipelining: true
   postgresql_user:  db={{ db_name }}
                     name={{ db_user }}
                     password={{ db_password }}
