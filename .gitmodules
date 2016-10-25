@@ -4,3 +4,6 @@
 [submodule "roles/sp"]
 	path = roles/shibboleth
 	url = git@github.com:ubuntunet/ansible-role_sp.git
+[submodule "roles/letsencrypt"]
+	path = roles/letsencrypt
+	url = https://github.com/thefinn93/ansible-letsencrypt
