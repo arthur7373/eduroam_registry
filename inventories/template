@@ -1,0 +1,10 @@
+wingu ansible_host=192.168.1.1
+
+[djnro]
+wingu
+
+[djnro:vars]
+ansible_user=ubuntu
+
+[template:children]
+djnro
