@@ -1,0 +1,47 @@
+# Roles to be played
+enable_newrelic: False
+enable_shibboleth: False
+
+# Server
+ubuntu_version: 14.04
+
+# DjNRO branch to deploy
+github_branch: master
+debug: True
+
+fqdn: eduroam.me
+federation_name: Example Alliance
+country: Meland
+country_tld: me
+
+# User for Django backend
+admin_user: admin
+admin_email: eduroam@ubuntunet.net
+
+# Info used in the website header...
+domain_link: //eduroam.me
+
+# ...map...
+# See http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+time_zone: Africa/Blantyre
+# Location of map center
+latitude: 13.9626
+longitude: 33.7741
+
+# ...and footer
+facebook_url: //www.facebook.com/pages/UbuntuNet-Alliance-for-Research-and-Education-Networking
+twitter_url: //twitter.com/ubuntunet
+support_email: eduroam@ubuntunet.net
+support_phone: 123 456
+support_url: https://ubuntunet.net/services/eduroam
+developer_name: UbuntuNet Alliance
+developer_url: //ubuntunet.net
+
+# Database Backend
+db_type: postgresql_psycopg2
+db_name: djnro
+db_user: djbobo
+db_host: 127.0.0.1
+
+# Attribute to check for Shibboleth User
+entitlement: http://eduroam.mw/admin

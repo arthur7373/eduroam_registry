@@ -5,8 +5,9 @@ admin_email: eduroam@ubuntunet.net
 facebook_url: //www.facebook.com/pages/UbuntuNet-Alliance-for-Research-and-Education-Networking
 twitter_url: //twitter.com/ubuntunet
 
-country: Example
-country_tld: ex
+federation_name: Example Alliance
+country: Malawi
+country_tld: mw
 # See http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 time_zone: Africa/Blantyre
 latitude: 13.9626
@@ -21,6 +22,13 @@ db_name: djnro
 db_user: djbobo
 db_host: 127.0.0.1
 
+entitlement: http://eduroam.mw/admin
+
+ubuntu_version: 14.04
+github_branch: develop
 debug: True
 developer_name: UbuntuNet Alliance
 developer_url: //ubuntunet.net
+
+enable_newrelic: False
+enable_shibboleth: False
