@@ -3,7 +3,7 @@ vagrant ansible_host=192.168.46.201
 [djnro]
 vagrant
 
-[djrno:vars]
+[djnro:vars]
 ansible_user=vagrant
 ansible_private_key_file=~/.vagrant.d/insecure_private_key
 
