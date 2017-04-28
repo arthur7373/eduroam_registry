@@ -1,39 +1,52 @@
 - name: Install Prerequisites
   apt: pkg={{ item }} update_cache=yes cache_valid_time=36000
   with_items:
-    - build-essential
+#    - build-essential
     - python
     - memcached
     - exim4
     - python-dev
     - python-pip
-    - python-lxml
-    - python-psycopg2
+#    - python-lxml
     - python-memcache
-    - python-django-social-auth
     - python-oauthlib
     - libxml2-dev
     - libxslt1-dev
+    - lib32z1
     - postgresql
+    - python-psycopg2
     - git
+
+- name: Install Python Social Auth for Ubuntu 14.04
+  apt: pkg=python-django-social-auth
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
+
+- name: Install Python Social Auth for Ubuntu 16.04
+  apt: pkg=python-social-auth
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
+
 
 - name: Clone DjNRO repository
   git: repo=https://github.com/ubuntunet/djnro.git
        dest={{ installation_path }}
+       force=yes
+       version={{ github_branch }}
 
 - name: Install Requirements
   pip: requirements={{ installation_path }}/requirements.txt
 
 - name: Create PostgreSQL database
-  become: true
   become_user: postgres
-  postgresql_db:  name={{ db_name }}
+  vars:
+    ansible_ssh_pipelining: true
+  postgresql_db:  name={{ db.name }}
 
 - name: Create PostgreSQL user
-  become: true
   become_user: postgres
-  postgresql_user:  db={{ db_name }}
-                    name={{ db_user }}
+  vars:
+    ansible_ssh_pipelining: true
+  postgresql_user:  db={{ db.name }}
+                    name={{ db.user }}
                     password={{ db_password }}
                     priv=ALL
                     role_attr_flags=NOCREATEDB,NOSUPERUSER
@@ -41,10 +54,16 @@
 - name: Copy local settings
   template: src=local_settings.py.j2
             dest={{ installation_path }}/djnro/local_settings.py
+            backup=yes
 
-- name: Setup DjNRO
+# - name: Setup DjNRO
+#   django_manage: >
+#     command=syncdb
+#     app_path={{ installation_path }}
+
+- name: Run migrations
   django_manage: >
-    command=syncdb
+    command=migrate
     app_path={{ installation_path }}
 
 - name: Create Superuser
@@ -53,9 +72,14 @@
     app_path={{ installation_path }}
   ignore_errors: yes
 
-- name: Run migrations
+- name: Collection static files
   django_manage: >
-    command=migrate
+    command=collectstatic
+    app_path={{ installation_path }}
+
+- name: Fetch KML
+  django_manage: >
+    command=fetch_kml
     app_path={{ installation_path }}
 
 - name: Copy front index

@@ -1,0 +1,13 @@
+wingu ansible_host=eduroam.maren.ac.mw
+
+#[wingu]
+#wingu_djnro
+
+[djnro]
+wingu
+
+[djnro:vars]
+ansible_user=ubuntu
+
+[eduroam_mw:children]
+djnro

@@ -1,11 +1,25 @@
+- name: Make sure Python2 is installed
+  hosts: djnro
+  become: True
+  gather_facts: False
+  tasks:
+    #- raw: test -e /usr/bin/python || (apt install -y python-minimal)
+    - raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+
 - name: Install eduroam Roaming Registry based on DjNRO
-  hosts: eduroam_djnro
+  hosts: djnro
   become: True
   vars_files:
     - group_vars/secrets.yml
+
   roles:
-    - djnro
     - apache
-    - shibboleth
-    # - newrelic
- 
+    - djnro
+    - { role: shibboleth, when: enable_shibboleth == True }
+    - { role: newrelic, when: enable_newrelic == True }
+    - role: letsencrypt
+      letsencrypt_webroot_path: "{{ installation_path }}"
+      letsencrypt_email: "{{ admin_email }}"
+      letsencrypt_cert_domains:
+      - "{{ fqdn }}"
+      letsencrypt_renewal_command_args: '--renew-hook "systemctl restart apache2"' 
