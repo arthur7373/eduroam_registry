@@ -61,15 +61,25 @@
 #     command=syncdb
 #     app_path={{ installation_path }}
 
+- name: Run migrations
+  django_manage: >
+    command=migrate
+    app_path={{ installation_path }}
+
 - name: Create Superuser
   django_manage: >
     command="createsuperuser --noinput --username={{ admin_user }} --email={{ admin_email }}" 
     app_path={{ installation_path }}
   ignore_errors: yes
 
-- name: Run migrations
+- name: Collection static files
   django_manage: >
-    command=migrate
+    command=collectstatic
+    app_path={{ installation_path }}
+
+- name: Fetch KML
+  django_manage: >
+    command=fetch_kml
     app_path={{ installation_path }}
 
 - name: Copy front index
