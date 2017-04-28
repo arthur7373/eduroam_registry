@@ -1,19 +1,20 @@
 - name: Install Prerequisites
   apt: pkg={{ item }} update_cache=yes cache_valid_time=36000
   with_items:
-    - build-essential
+#    - build-essential
     - python
     - memcached
     - exim4
     - python-dev
     - python-pip
-    - python-lxml
-    - python-psycopg2
+#    - python-lxml
     - python-memcache
     - python-oauthlib
     - libxml2-dev
     - libxslt1-dev
+    - lib32z1
     - postgresql
+    - python-psycopg2
     - git
 
 - name: Install Python Social Auth for Ubuntu 14.04
@@ -38,14 +39,14 @@
   become_user: postgres
   vars:
     ansible_ssh_pipelining: true
-  postgresql_db:  name={{ db_name }}
+  postgresql_db:  name={{ db.name }}
 
 - name: Create PostgreSQL user
   become_user: postgres
   vars:
     ansible_ssh_pipelining: true
-  postgresql_user:  db={{ db_name }}
-                    name={{ db_user }}
+  postgresql_user:  db={{ db.name }}
+                    name={{ db.user }}
                     password={{ db_password }}
                     priv=ALL
                     role_attr_flags=NOCREATEDB,NOSUPERUSER
@@ -55,10 +56,10 @@
             dest={{ installation_path }}/djnro/local_settings.py
             backup=yes
 
-- name: Setup DjNRO
-  django_manage: >
-    command=syncdb
-    app_path={{ installation_path }}
+# - name: Setup DjNRO
+#   django_manage: >
+#     command=syncdb
+#     app_path={{ installation_path }}
 
 - name: Create Superuser
   django_manage: >

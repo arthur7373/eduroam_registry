@@ -18,15 +18,19 @@ support_email: eduroam@ubuntunet.net
 support_phone: +265 1 754 535
 support_url: //ubuntunet.net
 
-db_type: postgresql_psycopg2
-db_name: djnro
-db_user: djbobo
-db_host: 127.0.0.1
+# Database Backend
+db:
+  type: postgresql_psycopg2
+  name: djnro
+  user: djbobo
+  host: 127.0.0.1
+  port: 5432
 
 entitlement: http://eduroam.mw/admin
+federation_url: https://eduid.ubuntunet.net
 
-ubuntu_version: 14.04
-github_branch: master
+#ubuntu_version: 14.04
+github_branch: develop
 debug: True
 developer_name: UbuntuNet Alliance
 developer_url: //ubuntunet.net

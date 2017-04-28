@@ -1,0 +1,13 @@
+wingu ansible_host=196.223.218.92
+
+#[wingu]
+#wingu_djnro
+
+[djnro]
+wingu
+
+[djnro:vars]
+ansible_user=ubuntu
+
+[eduroam_mw:children]
+djnro

@@ -3,7 +3,7 @@ enable_newrelic: False
 enable_shibboleth: False
 
 # Server
-ubuntu_version: 14.04
+#ubuntu_version: 14.04
 
 # DjNRO branch to deploy
 github_branch: master
@@ -38,10 +38,13 @@ developer_name: UbuntuNet Alliance
 developer_url: //ubuntunet.net
 
 # Database Backend
-db_type: postgresql_psycopg2
-db_name: djnro
-db_user: djbobo
-db_host: 127.0.0.1
+db:
+  type: postgresql_psycopg2
+  name: djnro
+  user: djbobo
+  host: 127.0.0.1
+  port: 5432
 
-# Attribute to check for Shibboleth User
+# Shibboleth SP
 entitlement: http://eduroam.mw/admin
+federation_url: https://eduid.ubuntunet.net

@@ -1,20 +1,21 @@
-fqdn: 192.168.46.201
+fqdn: eduroam.maren.ac.mw
 domain_link: //eduroam.mw
 admin_user: admin
 admin_email: eduroam@ubuntunet.net
-facebook_url: //www.facebook.com/pages/UbuntuNet-Alliance-for-Research-and-Education-Networking
+facebook_url: //facebook.com/pages/UbuntuNet-Alliance-for-Research-and-Education-Networking
 twitter_url: //twitter.com/ubuntunet
+#google_api_url: 
 
-federation_name: Example Alliance
+federation_name: UbuntuNet Alliance
 country: Malawi
 country_tld: mw
 # See http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 time_zone: Africa/Blantyre
-latitude: 13.9626
+latitude: -13.9626
 longitude: 33.7741
 
 support_email: eduroam@ubuntunet.net
-support_phone: 123 456
+support_phone: +265 1 754 535
 support_url: //ubuntunet.net
 
 # Database Backend
@@ -25,14 +26,15 @@ db:
   host: 127.0.0.1
   port: 5432
 
+# Shibboleth SP
 entitlement: http://eduroam.mw/admin
 federation_url: https://eduid.ubuntunet.net
 
-#ubuntu_version: 14.04
+#ubuntu_version: xenial
 github_branch: develop
 debug: True
 developer_name: UbuntuNet Alliance
 developer_url: //ubuntunet.net
 
-enable_newrelic: False
-enable_shibboleth: False
+enable_newrelic: True
+enable_shibboleth: True
