@@ -13,3 +13,57 @@ cd /opt/djnro
 ## Initial Login
 
 Go to https://{{fqdn}}/admin and login with the the {{admin_user}} and with the password you have set above.
+
+
+## Import institution data (if available)
+
+```
+./manage.py parse_institution_xml /path/to/institution.xml
+```
+
+
+
+Comments and manual Installation for UbuntuNet Alliance
+============================================
+
+
+```
+sudo apt install python python-memcache exim4 python-dev libxml2-dev libxslt1-dev -devlib32z1 python-pip apache2 libapache2-mod-wsgi postgresql python-psycopg2
+cd /opt
+sudo mkdir djnro
+sudo chown ubuntu djnro
+git clone https://github.com/ubuntunet/djnro
+cd djnro
+pip install -r requirements.txt
+```
+
+Then follow from here
+http://djnro.readthedocs.io/en/latest/installation/install/
+
+Setup the database before running the migration:
+```
+cd /opt/djnro
+./manage.py syncdb
+./manage.py migrate
+```
+
+Apache Server
+-------------
+
+Make sure all required modules are enabled
+```
+sudo a2enmod wsgi rewrite ssl
+```
+
+Add Lets Encrypt certificate
+----------------------------
+
+```
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-apache 
+
+sudo certbot --apache certonly
+
+sudo certbot renew
+```
