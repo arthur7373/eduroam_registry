@@ -1,5 +1,4 @@
 # Roles to be played
-enable_newrelic: False
 enable_shibboleth: False
 
 # Server
