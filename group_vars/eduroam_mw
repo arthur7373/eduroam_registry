@@ -7,6 +7,14 @@ twitter_url: //twitter.com/ubuntunet
 #google_api_url: 
 
 federation_name: UbuntuNet Alliance
+countries:
+  - 
+    name: Malawi
+    tld: mw
+  - 
+    name: Ethiopia
+    tld: et
+
 country: Malawi
 country_tld: mw
 # See http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -36,5 +44,4 @@ debug: True
 developer_name: UbuntuNet Alliance
 developer_url: //ubuntunet.net
 
-enable_newrelic: True
 enable_shibboleth: True

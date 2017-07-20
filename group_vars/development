@@ -34,5 +34,4 @@ debug: True
 developer_name: UbuntuNet Alliance
 developer_url: //ubuntunet.net
 
-enable_newrelic: False
 enable_shibboleth: False
