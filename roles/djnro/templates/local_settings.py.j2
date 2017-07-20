@@ -135,7 +135,7 @@ TIME_ZONE = '{{ time_zone }}'
 MAP_CENTER = ({{ latitude }}, {{ longitude }})
 
 # Variable used to determine the active Realm object (in views and context processor)
-NRO_COUNTRY_CODE = '{{ country_tld }}'
+NRO_COUNTRY_CODE = '{{ countries[0].tld }}'
 # Google Maps API key, see https://developers.google.com/maps/documentation/javascript/get-api-key#key
 #GOOGLE_API_KEY = 'thisisthelongapikey'
 
@@ -156,7 +156,9 @@ NRO_DOMAIN_HELPDESK_DICT = {"name": _ld({'en': "Domain Helpdesk"}), 'email':'{{ 
 
 #Countries for Realm model:
 REALM_COUNTRIES = (
-    ('{{ country_tld }}', _ld({'en': '{{ country }}'}) ),
+{% for country in countries %}
+    ('{{ country.tld }}', _ld({'en': '{{ country.name }}'}) ),
+{% endfor %}
 )
 
 # List the login methods to be offered to users here.
@@ -180,7 +182,7 @@ MANAGE_LOGIN_METHODS = (
   { 'backend': 'locallogin', 'enabled': False, 'class': None, 'name': 'Local login', 'local_image': 'img/right_logo_small.png' },
   # ModelBackend class 'django.contrib.auth.backends.ModelBackend' intentionally omitted as it is always included in AUTHENTICATION_BACKENDS
   { 'backend': 'google-oauth2', 'enabled': True, 'class': 'social.backends.google.GoogleOAuth2', 'name': 'Google', 'fa_style': 'fa fa-google fa-2x' },
-  { 'backend': 'yahoo', 'enabled': True, 'name': 'Yahoo', 'class': 'social.backends.yahoo.YahooOpenId', 'local_image': 'img/yahoo_img.png' },
+  { 'backend': 'yahoo', 'enabled': False, 'name': 'Yahoo', 'class': 'social.backends.yahoo.YahooOpenId', 'local_image': 'img/yahoo_img.png' },
   { 'backend': 'amazon', 'enabled': False, 'class': 'social.backends.amazon.AmazonOAuth2', 'name': 'Amazon', 'fa_style': 'fa fa-amazon fa-2x' },
   { 'backend': 'docker', 'enabled': False, 'class': 'social.backends.docker.DockerOAuth2', 'name': 'Docker', 'image_url': 'https://hub.docker.com/hub-static/img/nav/docker-logo-loggedin.png' },
   { 'backend': 'dropbox-oauth2', 'enabled': False, 'class': 'social.backends.dropbox.DropboxOAuth2', 'name': 'Dropbox', 'fa_style': 'fa fa-dropbox fa-2x' },
@@ -188,7 +190,7 @@ MANAGE_LOGIN_METHODS = (
   { 'backend': 'launchpad', 'enabled': False, 'class': 'social.backends.launchpad.LaunchpadOpenId', 'name': 'Launchpad', 'image_url': 'https://login.launchpad.net/assets/identityprovider/img/favicon.ico' },
   { 'backend': 'linkedin-oauth2', 'enabled': False, 'class': 'social.backends.linkedin.LinkedinOAuth2', 'name': 'LinkedIn', 'fa_style': 'fa fa-linkedin fa-2x' },
   { 'backend': 'meetup', 'enabled': False, 'name': 'MeetUp', 'class': 'social.backends.meetup.MeetupOAuth2', 'image_url': 'http://img1.meetupstatic.com/img/logo.svg' },
-  { 'backend': 'twitter', 'enabled': False, 'class': 'social.backends.twitter.TwitterOAuth', 'name': 'Twitter', 'fa_style': 'fa fa-twitter fa-2x' },
+  { 'backend': 'twitter', 'enabled': True, 'class': 'social.backends.twitter.TwitterOAuth', 'name': 'Twitter', 'fa_style': 'fa fa-twitter fa-2x' },
   # add more here
 )
 
@@ -228,20 +230,20 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = []
 # CAT_PROFILES_URL: Base URL for Intitution Download Area pages
 # CAT_IDPMGMT_URL: URL For IdP Overview page
 
-# CAT_INSTANCES = (
-#     ('production', 'cat.eduroam.org'),
+CAT_INSTANCES = (
+    ('production', 'cat.eduroam.org'),
 #     ('testing', 'cat-test.eduroam.org'),
-# )
+)
 
-# CAT_AUTH = {
-#     'production': {
-#         "CAT_API_KEY": "<provided API key>",
-#         "CAT_API_URL": "https://cat.eduroam.org/admin/API.php",
-#         "CAT_USER_API_URL": "https://cat.eduroam.org/user/API.php",
-#         "CAT_USER_API_LOCAL_DOWNLOADS": "https://cat.eduroam.org/",
-#         "CAT_PROFILES_URL": "https://cat.eduroam.org/",
-#         "CAT_IDPMGMT_URL": "https://cat.eduroam.org/admin/overview_idp.php"
-#     },
+CAT_AUTH = {
+    'production': {
+        "CAT_API_KEY": "{{ cat_api_key }}",
+        "CAT_API_URL": "https://cat.eduroam.org/admin/API.php",
+        "CAT_USER_API_URL": "https://cat.eduroam.org/user/API.php",
+        "CAT_USER_API_LOCAL_DOWNLOADS": "https://cat.eduroam.org/",
+        "CAT_PROFILES_URL": "https://cat.eduroam.org/",
+        "CAT_IDPMGMT_URL": "https://cat.eduroam.org/admin/overview_idp.php"
+    },
 #     'testing': {
 #         "CAT_API_KEY": "<provided API key>",
 #         "CAT_API_URL": "https://cat-test.eduroam.org/test/admin/API.php",
@@ -250,7 +252,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = []
 #         "CAT_PROFILES_URL": "https://cat-test.eduroam.org/test",
 #         "CAT_IDPMGMT_URL": "https://cat-test.eduroam.org/test/admin/overview_idp.php"
 #     },
-# }
+}
 
 # CAT User API proxy can optionally cache responses using a Django
 # cache backend. By default only expensive API actions (where responses
