@@ -1,0 +1,27 @@
+- name: Install Prerequisites
+  apt: pkg={{ item }} update_cache=yes cache_valid_time=36000
+  with_items:
+#    - build-essential
+    - python
+    - memcached
+    - exim4
+    - python-dev
+    - python-pip
+#    - python-lxml
+    - python-memcache
+    - python-oauthlib
+    - libxml2-dev
+    - libxslt1-dev
+    - lib32z1
+    - postgresql
+    - python-psycopg2
+    - git
+
+- name: Install Python Social Auth for Ubuntu 14.04
+  apt: pkg=python-django-social-auth
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
+
+- name: Install Python Social Auth for Ubuntu 16.04
+  apt: pkg=python-social-auth
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
+
