@@ -1,4 +1,4 @@
-- include: install.yml
+- import_tasks: install.yml
 
 - name: Clone DjNRO repository
   git: repo=https://github.com/ubuntunet/djnro.git
