@@ -1,4 +1,5 @@
-my_djnro ansible_host=eduroam.maren.ac.mw
+#my_djnro ansible_host=eduroam.maren.ac.mw
+my_djnro ansible_host=eduroam.ubuntunet.net
 
 [djnro]
 my_djnro

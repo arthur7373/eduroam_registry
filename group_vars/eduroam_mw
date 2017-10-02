@@ -1,5 +1,7 @@
-fqdn: eduroam.maren.ac.mw
-domain_link: //eduroam.mw
+# fqdn: eduroam.maren.ac.mw
+# domain_link: //eduroam.mw
+fqdn: eduroam.ubuntunet.net
+domain_link: //eduroam.ubuntunet.net
 admin_user: admin
 admin_email: eduroam@ubuntunet.net
 facebook_url: //facebook.com/pages/UbuntuNet-Alliance-for-Research-and-Education-Networking
